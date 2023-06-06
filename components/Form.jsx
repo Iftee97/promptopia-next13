@@ -18,7 +18,7 @@ export default function Form({
         {type} and share amazing AI-Powered prompts with the world, and let your imagination run wild with any AI-powered paltform.
       </p>
       <form
-        className="mt-10 w-full max-w-2xl flex flex-col gap-7 rounded-xl border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199, 199, 199, 0.2)] backdrop-blur p-5"
+        className="mt-10 w-full max-w-2xl flex flex-col gap-7 rounded-xl border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199, 199, 199, 0.2)] backdrop-blur p-5 mb-6"
         onSubmit={handleSubmit}
       >
         <label>

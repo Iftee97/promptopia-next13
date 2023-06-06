@@ -1,26 +1,16 @@
-"use client"
+import { getServerSession } from "next-auth/next"
+import { authOptions } from "../api/auth/[...nextauth]/route"
+import { redirect } from "next/navigation"
+import CreatePromptClientPage from "./client-page"
 
-import { useState } from "react"
-import { useSession } from "next-auth/react"
-import { useRouter } from "next/navigation"
-import Form from "@/components/Form"
-
-export default function CreatePrompt() {
-  const [submitting, setSubmitting] = useState(false)
-  const [post, setPost] = useState({
-    prompt: "",
-    tag: "",
-  })
-
-  async function createPrompt(e) { }
+export default async function CreatePrompt() {
+  const session = await getServerSession(authOptions)
+  console.log("server session: >>>>>>>>>>", session)
+  if (!session) {
+    return redirect("/")
+  } // server side route guard
 
   return (
-    <Form
-      type="Create"
-      post={post}
-      setPost={setPost}
-      submitting={submitting}
-      handleSubmit={createPrompt}
-    />
+    <CreatePromptClientPage />
   )
 }
