@@ -37,7 +37,7 @@ export default function Form({
           <span className="font-satoshi font-semibold text-base text-gray-700">
             Prompt Tag {" "}
             <span className='font-normal'>
-              (#product, #webdevelopment, #idea, etc.)
+              (e.g. #product, #webdev, #idea, etc.)
             </span>
           </span>
           <input
@@ -58,7 +58,7 @@ export default function Form({
             disabled={submitting}
             className="px-5 py-1.5 text-sm bg-primary-orange rounded-full text-white"
           >
-            {submitting ? `${type}ing...` : type}
+            {submitting ? "Loading..." : type}
           </button>
         </div>
       </form>

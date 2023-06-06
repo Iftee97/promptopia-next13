@@ -1,6 +1,6 @@
 import "@/styles/globals.css"
 import Nav from "@/components/Nav"
-import Provider from "@/components/Provider"
+import NextAuthSessionProvider from "@/components/NextAuthSessionProvider"
 
 export const metadata = {
   title: "Promptopia",
@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <Provider>
+        <NextAuthSessionProvider>
           <div className="main">
             <div className="gradient" />
           </div>
@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
             <Nav />
             {children}
           </main>
-        </Provider>
+        </NextAuthSessionProvider>
       </body>
     </html >
   )
