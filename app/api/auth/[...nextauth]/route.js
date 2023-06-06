@@ -11,11 +11,6 @@ export const authOptions = {
     })
   ],
   callbacks: {
-    async session({ session }) {
-      const sessionUser = await User.findOne({ email: session.user.email })
-      session.user.id = sessionUser._id.toString()
-      return session
-    }, // Add user id from db to next auth session object 
     async signIn({ profile }) {
       try {
         await connectToDb()
@@ -33,10 +28,18 @@ export const authOptions = {
         return false
       }
     },
+    async session({ session }) {
+      const sessionUser = await User.findOne({ email: session.user.email })
+      session.user.id = sessionUser._id.toString()
+      return session
+    }, // Add user id from db to next auth session object
   },
   secret: process.env.NEXTAUTH_SECRET,
 }
 
 const handler = NextAuth(authOptions)
 
-export { handler as GET, handler as POST }
+export {
+  handler as GET,
+  handler as POST
+}
