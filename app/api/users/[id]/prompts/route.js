@@ -7,8 +7,8 @@ export async function GET(request, { params }) {
   try {
     await connectToDb()
     const prompts = await Prompt.find({ creator: params.id }).populate("creator")
-    return NextResponse(JSON.stringify(prompts), { status: 200 })
+    return new NextResponse(JSON.stringify(prompts), { status: 200 })
   } catch (error) {
-    return NextResponse("Failed to fetch prompts created by user", { status: 500 })
+    return new NextResponse("Failed to fetch prompts created by user", { status: 500 })
   }
 }

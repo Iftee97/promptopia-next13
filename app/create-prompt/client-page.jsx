@@ -19,6 +19,11 @@ export default function CreatePromptClientPage() {
     e.preventDefault()
     setSubmitting(true)
     try {
+      console.log("post: >>>>>>>>>>>>", {
+        userId: session?.user.id,
+        prompt: post.prompt,
+        tag: post.tag,
+      })
       const response = await fetch("/api/prompt/new", {
         method: "POST",
         body: JSON.stringify({
@@ -27,10 +32,10 @@ export default function CreatePromptClientPage() {
           tag: post.tag,
         }),
       })
+      console.log("response: >>>>>>>>>>>>", response)
       if (response.ok) {
         router.push("/")
       }
-      console.log("post: >>>>>>>>>>>>", post)
     } catch (error) {
       console.log(error)
     } finally {
