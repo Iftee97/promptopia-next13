@@ -8,11 +8,11 @@ export async function GET(request, { params }) {
     await connectToDb()
     const prompt = await Prompt.findById(params.id).populate("creator")
     if (!prompt) {
-      return new Response("Prompt Not Found", { status: 404 })
+      return new NextResponse("Prompt Not Found", { status: 404 })
     }
-    return new Response(JSON.stringify(prompt), { status: 200 })
+    return new NextResponse(JSON.stringify(prompt), { status: 200 })
   } catch (error) {
-    return new Response("Internal Server Error", { status: 500 })
+    return new NextResponse("Internal Server Error", { status: 500 })
   }
 }
 
@@ -48,11 +48,11 @@ export async function PATCH(request, { params }) {
       { new: true }
     )
     if (!updatedPrompt) {
-      return new Response("Prompt not found", { status: 404 })
+      return new NextResponse("Prompt not found", { status: 404 })
     }
-    return new Response("Prompt updated successfully!", { status: 200 })
+    return new NextResponse("Prompt updated successfully!", { status: 200 })
   } catch (error) {
-    return new Response("Error updating prompt", { status: 500 })
+    return new NextResponse("Error updating prompt", { status: 500 })
   }
 }
 
@@ -61,8 +61,8 @@ export async function DELETE(request, { params }) {
   try {
     await connectToDb()
     await Prompt.findByIdAndRemove(params.id) // Find the prompt by ID and remove it
-    return new Response("Prompt deleted successfully", { status: 200 })
+    return new NextResponse("Prompt deleted successfully", { status: 200 })
   } catch (error) {
-    return new Response("Error deleting prompt", { status: 500 })
+    return new NextResponse("Error deleting prompt", { status: 500 })
   }
 }

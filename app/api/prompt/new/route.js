@@ -17,8 +17,8 @@ export async function POST(request) {
       tag
     })
     await newPrompt.save()
-    return new Response(JSON.stringify(newPrompt), { status: 200 })
+    return new NextResponse(JSON.stringify(newPrompt), { status: 200 })
   } catch (error) {
-    return new Response("Failed to create a new prompt", { status: 500 })
+    return new NextResponse("Failed to create a new prompt", { status: 500 })
   }
 }
