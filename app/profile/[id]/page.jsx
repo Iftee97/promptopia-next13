@@ -12,7 +12,9 @@ export default function OthersProfileClentPage({ params }) {
 
   useEffect(() => {
     async function fetchPosts() {
-      const response = await fetch(`/api/users/${params?.id}/prompts`)
+      const response = await fetch(`/api/users/${params?.id}/prompts`, {
+        cache: "no-store",
+      })
       const data = await response.json()
 
       setUserPosts(data)

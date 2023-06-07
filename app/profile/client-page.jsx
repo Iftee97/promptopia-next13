@@ -13,7 +13,9 @@ export default function MyProfileClientPage() {
 
   useEffect(() => {
     async function fetchPosts() {
-      const response = await fetch(`/api/users/${session?.user.id}/prompts`)
+      const response = await fetch(`/api/users/${session?.user.id}/prompts`, {
+        cache: "no-store",
+      })
       const data = await response.json()
       setMyPosts(data)
     }
