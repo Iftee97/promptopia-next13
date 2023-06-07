@@ -1,9 +1,9 @@
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import { redirect } from "next/navigation"
-import CreatePromptClientPage from "./client-page"
+import UpdatePromptClientPage from "./client-page"
 
-export default async function CreatePrompt() {
+export default async function UpdatePrompt() {
   const session = await getServerSession(authOptions)
   console.log("server session: >>>>>>>>>>", session)
   if (!session) {
@@ -11,6 +11,6 @@ export default async function CreatePrompt() {
   } // server side route guard
 
   return (
-    <CreatePromptClientPage />
+    <UpdatePromptClientPage />
   )
 }

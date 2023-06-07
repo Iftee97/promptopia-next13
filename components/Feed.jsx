@@ -21,7 +21,8 @@ export default function Feed() {
   }
 
   function filterPrompts(searchtext) {
-    const regex = new RegExp(searchtext, "i") // 'i' flag for case-insensitive search
+    const trimmedSearchText = searchtext.trim() // Remove whitespace from the start and end
+    const regex = new RegExp(trimmedSearchText, "i") // 'i' flag for case-insensitive search
     return allPosts.filter((item) => {
       return (
         regex.test(item.creator.username) ||
