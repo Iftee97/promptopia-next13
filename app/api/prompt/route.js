@@ -10,7 +10,7 @@ export async function GET(request) {
     // const prompts = await Prompt.find({}).populate("creator")
     // return new NextResponse(JSON.stringify(prompts), { status: 200 })
 
-    // // new implementation:
+    // // new implementation: fixes the problem of the cache not updating when a new prompt is created 
     await connectToDb()
     const prompts = await Prompt.find().populate({ path: "creator" })
     const response = new NextResponse(JSON.stringify(prompts), { status: 200 })
