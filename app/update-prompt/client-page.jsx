@@ -13,7 +13,7 @@ export default function UpdatePromptClientPage() {
     prompt: "",
     tag: "",
   })
-  const [submitting, setIsSubmitting] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
 
   useEffect(() => {
     async function getPromptDetails() {
@@ -33,7 +33,7 @@ export default function UpdatePromptClientPage() {
 
   async function updatePrompt(e) {
     e.preventDefault()
-    setIsSubmitting(true)
+    setSubmitting(true)
 
     if (!promptId) {
       return alert("Missing PromptId!")
@@ -53,7 +53,7 @@ export default function UpdatePromptClientPage() {
     } catch (error) {
       console.log(error)
     } finally {
-      setIsSubmitting(false)
+      setSubmitting(false)
     }
   }
 
