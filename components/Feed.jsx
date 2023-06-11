@@ -50,7 +50,7 @@ export default function Feed() {
   }
 
   return (
-    <secton className="mt-16 mx-auto w-full max-w-xl flex justify-center items-center flex-col gap-2">
+    <section className="mt-16 mx-auto w-full max-w-xl flex justify-center items-center flex-col gap-2">
       <form className="relative w-full flex justify-center items-center">
         <input
           type="text"
@@ -72,7 +72,7 @@ export default function Feed() {
           handleTagClick={handleTagClick}
         />
       )}
-    </secton>
+    </section>
   )
 }
 
