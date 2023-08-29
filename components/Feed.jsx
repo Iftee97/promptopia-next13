@@ -19,7 +19,8 @@ export default function Feed() {
     })
     const data = await response.json()
     console.log('posts: >>>>>>>>>', data)
-    setAllPosts(data)
+    const posts = data.reverse()
+    setAllPosts(posts)
   }
 
   function filterPrompts(searchtext) {
