@@ -6,8 +6,8 @@ import { useState, useEffect } from "react"
 import { signIn, signOut, useSession, getProviders } from "next-auth/react"
 
 export default function Nav() {
-  const { data: session } = useSession()
-  console.log('session: >>>>>>>>>', session)
+  const { data: session, status } = useSession()
+  // console.log({ session, status }) // status = loading | authenticated | unauthenticated
 
   const [providers, setProviders] = useState(null)
   const [toggleDropdown, setToggleDropdown] = useState(false)
@@ -18,7 +18,7 @@ export default function Nav() {
 
   async function setInitialProviders() {
     const providers = await getProviders()
-    console.log('providers: >>>>>>>>>', providers)
+    // console.log('providers: >>>>>>>>>', providers)
     setProviders(providers)
   }
 
@@ -39,7 +39,9 @@ export default function Nav() {
 
       {/* desktop navigation */}
       <div className="sm:flex hidden">
-        {session?.user ? (
+        {status === "loading" ? (
+          <p>Loading...</p>
+        ) : session?.user ? (
           <div className="flex gap-3 md:gap-5">
             <Link
               href="/create-prompt"
@@ -82,7 +84,9 @@ export default function Nav() {
 
       {/* mobile navigation */}
       <div className="sm:hidden flex relative">
-        {session?.user ? (
+        {status === "loading" ? (
+          <p>Loading...</p>
+        ) : session?.user ? (
           <div className="flex">
             <Image
               src={session?.user?.image}

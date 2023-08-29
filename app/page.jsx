@@ -1,6 +1,17 @@
 import Feed from "@/components/Feed"
 
-export default function Home() {
+async function getAllPrompts() {
+  const response = await fetch(`${process.env.BASE_URL}/api/prompt`, {
+    cache: "no-store",
+  })
+  return response.json()
+}
+
+export default async function Home() {
+  const allPosts = await getAllPrompts()
+  const posts = allPosts.reverse()
+  // console.log("SSR posts: >>>>>>>>", posts)
+
   return (
     <section className="w-full flex flex-col justify-center items-center">
       <h1 className="mt-5 text-5xl sm:text-6xl font-extrabold leading-[1.15] text-black text-center">
@@ -14,7 +25,7 @@ export default function Home() {
         Promptopia is an open-source AI prompting tool for modern world to
         discover, create and share creative prompts
       </p>
-      <Feed />
+      <Feed allPosts={posts} />
     </section>
   )
 }

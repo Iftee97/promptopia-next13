@@ -5,7 +5,7 @@ import CreatePromptClientPage from "./client-page"
 
 export default async function CreatePrompt() {
   const session = await getServerSession(authOptions)
-  console.log("server session: >>>>>>>>>>", session)
+  // console.log("server session: >>>>>>>>>>", session)
   if (!session) {
     return redirect("/")
   } // server side route guard

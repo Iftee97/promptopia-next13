@@ -1,40 +1,14 @@
 "use client"
 
-import { useRouter } from "next/navigation"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import PromptCard from "./PromptCard"
 
-export default function Feed() {
-  const [allPosts, setAllPosts] = useState([])
+export default function Feed({ allPosts }) {
+  console.log("Feed allPosts: >>>>>>>>", allPosts)
+
   const [searchText, setSearchText] = useState("")
   const [searchTimeout, setSearchTimeout] = useState(null)
   const [searchedResults, setSearchedResults] = useState([])
-  const [loading, setLoading] = useState(true)
-  const router = useRouter()
-
-  useEffect(() => {
-    fetchPosts()
-  }, [])
-
-  async function fetchPosts() {
-    try {
-      setLoading(true)
-      const response = await fetch("/api/prompt", {
-        cache: "no-store",
-      })
-      if (!response.ok) {
-        throw new Error(`Failed to fetch, status code: ${response.status}`)
-      }
-      const data = await response.json()
-      const posts = data.reverse()
-      setAllPosts(posts)
-    } catch (error) {
-      console.error("Error fetching posts:", error)
-      router.refresh()
-    } finally {
-      setLoading(false)
-    }
-  }
 
   function filterPrompts(searchtext) {
     const trimmedSearchText = searchtext.trim() // Remove whitespace from the start and end
@@ -75,16 +49,10 @@ export default function Feed() {
           required
         />
       </form>
-      {loading ? (
-        <p className="text-center text-lg font-medium mt-6">
-          Loading...
-        </p>
+      {searchText ? (
+        <PromptCardList data={searchedResults} handleTagClick={handleTagClick} />
       ) : (
-        searchText ? (
-          <PromptCardList data={searchedResults} handleTagClick={handleTagClick} />
-        ) : (
-          <PromptCardList data={allPosts} handleTagClick={handleTagClick} />
-        )
+        <PromptCardList data={allPosts} handleTagClick={handleTagClick} />
       )}
     </section>
   )
