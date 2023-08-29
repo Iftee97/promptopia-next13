@@ -10,7 +10,7 @@ async function getAllPrompts() {
 export default async function Home() {
   const allPosts = await getAllPrompts()
   const posts = allPosts.reverse()
-  // console.log("SSR posts: >>>>>>>>", posts)
+  console.log("SSR posts: >>>>>>>>", posts)
 
   return (
     <section className="w-full flex flex-col justify-center items-center">
