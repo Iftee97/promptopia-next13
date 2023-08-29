@@ -8,19 +8,29 @@ export default function Feed() {
   const [searchText, setSearchText] = useState("")
   const [searchTimeout, setSearchTimeout] = useState(null)
   const [searchedResults, setSearchedResults] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     fetchPosts()
   }, [])
 
   async function fetchPosts() {
-    const response = await fetch("/api/prompt", {
-      cache: "no-store"
-    })
-    const data = await response.json()
-    console.log('posts: >>>>>>>>>', data)
-    const posts = data.reverse()
-    setAllPosts(posts)
+    try {
+      setLoading(true)
+      const response = await fetch("/api/prompt", {
+        cache: "no-store",
+      })
+      if (!response.ok) {
+        throw new Error(`Failed to fetch, status code: ${response.status}`)
+      }
+      const data = await response.json()
+      const posts = data.reverse()
+      setAllPosts(posts)
+    } catch (error) {
+      console.error("Error fetching posts:", error)
+    } finally {
+      setLoading(false)
+    }
   }
 
   function filterPrompts(searchtext) {
@@ -62,16 +72,16 @@ export default function Feed() {
           required
         />
       </form>
-      {searchText ? (
-        <PromptCardList
-          data={searchedResults}
-          handleTagClick={handleTagClick}
-        />
+      {loading ? (
+        <p className="text-center text-lg font-medium mt-6">
+          Loading...
+        </p>
       ) : (
-        <PromptCardList
-          data={allPosts}
-          handleTagClick={handleTagClick}
-        />
+        searchText ? (
+          <PromptCardList data={searchedResults} handleTagClick={handleTagClick} />
+        ) : (
+          <PromptCardList data={allPosts} handleTagClick={handleTagClick} />
+        )
       )}
     </section>
   )
