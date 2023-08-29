@@ -1,5 +1,6 @@
 "use client"
 
+import { useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
 import PromptCard from "./PromptCard"
 
@@ -9,6 +10,7 @@ export default function Feed() {
   const [searchTimeout, setSearchTimeout] = useState(null)
   const [searchedResults, setSearchedResults] = useState([])
   const [loading, setLoading] = useState(true)
+  const router = useRouter()
 
   useEffect(() => {
     fetchPosts()
@@ -28,6 +30,7 @@ export default function Feed() {
       setAllPosts(posts)
     } catch (error) {
       console.error("Error fetching posts:", error)
+      router.refresh()
     } finally {
       setLoading(false)
     }
